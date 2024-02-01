@@ -16,7 +16,7 @@ export default function PhotoPage() {
 
                 result = await axios({
                     method: 'post',
-                    url: "http://localhost:4000/api/v1/singlePhoto",
+                    url: "https://gallery-1iwt.vercel.app/api/v1/singlePhoto",
                     headers: {},
                     data: {
                         id: id, // This is the body part
