@@ -56,8 +56,8 @@ export default function Home(){
                 data.map((photo, index)=>{
                     return (
                         <Link to={`/photo/${photo._id}`}
-                        key={index} className=" relative before:w-0 before:absolute before:left-0 before:h-full
-                        hover:before:w-full before:bg-background/80 before:transition-all before:duration-700
+                        key={index} className=" relative before:w-full before:absolute before:left-0 before:h-full
+                        hover:before:bg-background/80 before:bg-background/20 before:transition-all before:duration-300
                         group w-full h-60">
                             <img src={photo.url} loading="lazy"
                              className="w-full h-full object-cover" 
