@@ -1,5 +1,19 @@
 const Photo = require('../models/Photo');
 const cloudinary = require('cloudinary').v2
+const {client} = require('../index.js');
+
+
+const getCachedData = async(key) => {
+    //console.log(await client.exists(key));
+    if (await client.exists(key)===1){
+        const data =  await client.get(key);
+        //console.log(data);
+        //console.log("data is cached");
+        return JSON.parse(data);
+    }
+    //console.log("Data not cached");
+    return null;
+}
 
 exports.uploadPhoto = async(req, res) =>{
     try{
@@ -48,7 +62,17 @@ exports.uploadPhoto = async(req, res) =>{
 
 exports.fetchPhotos = async(req, res) =>{
     try{
-        const result = await Photo.find({}).sort({createdAt:'desc'});
+        const cachedData = await getCachedData("photos");
+        if (cachedData!==null){
+            return res.status(200).json({
+                success: true,
+                message: "Images fetched successfully",
+                result: cachedData
+            })
+        }
+        let result = await Photo.find({}).sort({createdAt:'desc'});
+        
+        await client.setEx("photos", 3600, JSON.stringify(result));
 
         return res.status(200).json({
             success: true,
@@ -69,6 +93,14 @@ exports.fetchSinglePhoto = async(req, res) =>{
     try{
         const {id} = req.body;
         //console.log(id)
+        const cachedData = await getCachedData(`photo-${id}`);
+        if (cachedData!==null){
+            return res.status(200).json({
+                success: true,
+                message: "Photo fetched successfully!",
+                result: cachedData
+            })
+        }
         const result = await Photo.findById(id);
 
         if (result==null){
@@ -77,7 +109,7 @@ exports.fetchSinglePhoto = async(req, res) =>{
                 message: "Photo does not exists"
             })
         }
-
+        await client.setEx(`photo-${id}`, 120, JSON.stringify(result));
         return res.status(200).json({
             success: true,
             message: "Photo fetched successfully!",
