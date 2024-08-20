@@ -6,7 +6,10 @@ connectToCloudinary();
 const connect = require('./config/database')
 connect();
 const cors = require('cors');
-app.use(cors());
+const options = {
+    origin: '*',
+    }
+app.use(cors(options));
 const redis = require('redis');
 
 const client = redis.createClient({
