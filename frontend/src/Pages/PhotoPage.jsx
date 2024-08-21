@@ -16,7 +16,7 @@ export default function PhotoPage() {
 
                 result = await axios({
                     method: 'post',
-                    url: "https://gallery-1iwt.vercel.app/api/v1/singlePhoto",
+                    url: "https://gallery-r9jz.onrender.com/api/v1/singlePhoto",
                     headers: {},
                     data: {
                         id: id, // This is the body part

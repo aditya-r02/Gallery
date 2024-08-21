@@ -15,7 +15,7 @@ export default function Home(){
             //console.log("hi");
             let result;
             try{
-                result = (await axios.get("https://gallery-1iwt.vercel.app/api/v1/getPhoto")).data.result;
+                result = (await axios.get("https://gallery-r9jz.onrender.com/api/v1/getPhoto")).data.result;
                 
             }catch(error){
                 console.log(error);

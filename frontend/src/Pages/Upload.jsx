@@ -29,7 +29,7 @@ export default function Upload(){
             return;
         }
         setLoading(true);
-        const url = "https://gallery-1iwt.vercel.app/api/v1/putPhoto"
+        const url = "https://gallery-r9jz.onrender.com/api/v1/putPhoto"
         const formData = new FormData();
         formData.append("photo", photo);
         formData.append("title", title);
